@@ -44,7 +44,7 @@ export const getRecipesOfUser=async (req,res,next)=>{
     }
 }
 
-export const getUserOfRecipe = async (req, res, next) => {
+export const getUser = async (req, res, next) => {
     try {
         const userId = req.params.userId;
 

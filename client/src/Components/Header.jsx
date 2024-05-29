@@ -5,52 +5,49 @@ import { Context } from '../store/context';
 import { server } from '../main';
 import axios from "axios";
 
-
 const Header = () => {
     const { isAuthenticated, setIsAuthenticated, loading, setLoading } = useContext(Context);
-    const logoutHandler = () => {
+
+    const logoutHandler = async () => {
         setLoading(true);
         try {
-            const response = axios.get(`${server}/users/logout`,
-                {
-                    withCredentials: true
-                }
-            );
-            toast.success("logged out successfully");
+            await axios.get(`${server}/users/logout`, { withCredentials: true });
+            toast.success("Logged out successfully");
             setIsAuthenticated(false);
-            setLoading(false)
+            setLoading(false);
         } catch (error) {
-            toast.error(error.response.data.message);
-            console.log('Error:', error);
+            toast.error(error.response?.data?.message || "Logout failed. Please try again.");
             setLoading(false);
             setIsAuthenticated(true);
         }
-    }
+    };
+
     return (
-        <nav className='flex flex-col space-y-5 md:flex-row justify-between items-center px-8 py-4'>
-            <div>
-                <Link to="/">
-                    <p className='text-white text-2xl font-bold tracking-wide'>FlavorBook</p>
-                </Link>
-
-            </div>
-            <div className='flex space-x-4'>
-                {/* <Link to="/" className='text-white  text-lg hover:text-gray-300'>Home</Link> */}
-                <Link to="/saved" className='text-white  text-lg hover:text-gray-300'>Saved</Link>
-                <Link to="/profile" className='text-white  text-lg hover:text-gray-300'>Profile</Link>
-
-                {isAuthenticated ? (
-                    <button
-                        className='text-white  text-lg hover:text-gray-300'
-                        onClick={logoutHandler}>Logout</button>
-                ) : (
-                    <Link to="/login" className='text-white  text-lg hover:text-gray-300'>Login</Link>
-
-                )}
-
+        <nav className='bg-rose-600 shadow-md'>
+            <div className='flex flex-col space-y-5 md:flex-row justify-between items-center px-8 py-4'>
+                <div>
+                    <Link to="/">
+                        <p className='text-white text-3xl font-bold tracking-wide'>FlavorBook</p>
+                    </Link>
+                </div>
+                <div className='flex space-x-6'>
+                    <Link to="/saved" className='text-white text-lg hover:text-gray-300'>Saved</Link>
+                    <Link to="/profile" className='text-white text-lg hover:text-gray-300'>Profile</Link>
+                    {isAuthenticated ? (
+                        <button
+                            className='text-white text-lg hover:text-gray-300'
+                            onClick={logoutHandler}
+                            disabled={loading}
+                        >
+                            Logout
+                        </button>
+                    ) : (
+                        <Link to="/login" className='text-white text-lg hover:text-gray-300'>Login</Link>
+                    )}
+                </div>
             </div>
         </nav>
-    )
-}
+    );
+};
 
-export default Header
+export default Header;
