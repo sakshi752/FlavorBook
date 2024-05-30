@@ -1,6 +1,8 @@
 import ErrorHandler from "../middleware/error.js";
 import { Recipe } from "../models/recipe.js"; 
 import { User } from "../models/user.js";
+
+// add new recipe in authenticated user
 export const newRecipe=async (req,res,next)=>{
     try {
         const {title,ingredient1,ingredient2,ingredient3,ingredient4,description,imageUrl}=req.body;
@@ -18,6 +20,7 @@ export const newRecipe=async (req,res,next)=>{
   
 };
 
+// this will give us recipes of a authenticated user only
 export const getRecipesOfUser=async (req,res,next)=>{
     try {
         const userId=req.user._id;
@@ -32,6 +35,7 @@ export const getRecipesOfUser=async (req,res,next)=>{
     }
 }
 
+// this will give all recipes irrespective of the user, they will be displayed on home page
 export const getAllRecipes=async (req,res,next)=>{
     try {
         const recipes=await Recipe.find();
@@ -44,6 +48,23 @@ export const getAllRecipes=async (req,res,next)=>{
     }
 };
 
+// view recipe details
+export const viewRecipe=async(req,res,next)=>{
+    try {
+        const recipe=await Recipe.findById(req.params.id);
+        if (!recipe) return next(new ErrorHandler("Recipe not found"),404);
+
+        res.status(200).json({
+            success:true,
+            recipe
+
+        })
+    } catch (error) {
+        next(error);
+    }
+}
+
+// this will give us author info of a particular recipe. author's info and his/her recipes will be returned
 export const getUser = async (req, res, next) => {
     try {
         const userId = req.params.userId;
@@ -72,36 +93,32 @@ export const getUser = async (req, res, next) => {
     }
 };
 
-export const deleteRecipe=async (req,res,next)=>{
+// deletes recipe
+export const deleteRecipe = async (req, res, next) => {
     try {
-        const recipe=await Recipe.findById(req.params.id);
-        if (!recipe) return next(new ErrorHandler("Recipe not found"),404);
+        const recipe = await Recipe.findById(req.params.id);
+        if (!recipe) return next(new ErrorHandler("Recipe not found", 404));
+
+        console.log(recipe.user._id.toString());
+        console.log(req.user._id.toString());
+
+        if (recipe.user._id.toString() !== req.user._id.toString()) {
+            return next(new ErrorHandler("User is not authenticated", 403)); // Use 403 for forbidden
+        }
 
         await recipe.deleteOne();
 
         res.status(200).json({
-            success:true,
-            message:"Recipe deleted"
-        })
+            success: true,
+            message: "Recipe deleted"
+        });
     } catch (error) {
         next(error);
     }
 };
 
-export const viewRecipe=async(req,res,next)=>{
-    try {
-        const recipe=await Recipe.findById(req.params.id);
-        if (!recipe) return next(new ErrorHandler("Recipe not found"),404);
 
-        res.status(200).json({
-            success:true,
-            recipe
 
-        })
-    } catch (error) {
-        next(error);
-    }
-}
 
 export const updateRecipe=async(req,res,next)=>{
     

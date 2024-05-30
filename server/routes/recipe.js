@@ -10,12 +10,15 @@ router.post("/new",isAuthenticated,newRecipe);
 // this will give us recipes of a authenticated user only
 router.get("/all-recipes-user",isAuthenticated,getRecipesOfUser);
 
-// this will give all recipes irrespective of the user
+// this will give all recipes irrespective of the user, they will be displayed on home page
 router.get("/all-recipes",getAllRecipes);
 
-// this will give us author info of a particular recipe
+// view recipe details
+router.get("/view-recipe/:recipeId",viewRecipe);
+
+// this will give us author info of a particular recipe. author's info and his/her recipes will be returned
 router.get("/:userId",getUser)
 
 // this is to perform manipulation on a particular recipe
-router.route("/:id").get(isAuthenticated,viewRecipe).put(isAuthenticated,updateRecipe).delete(isAuthenticated,deleteRecipe);
+router.route("/:id").put(isAuthenticated,updateRecipe).delete(isAuthenticated,deleteRecipe);
 export default router;
