@@ -7,6 +7,13 @@ const ContextProvider=({children})=>{
     const [loading,setLoading]=useState(false);
     const [user, setUser] = useState({});
 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+
     return (
         <Context.Provider
         value={{
@@ -15,7 +22,8 @@ const ContextProvider=({children})=>{
             loading,
             setLoading,
             user,
-            setUser
+            setUser,isMenuOpen, 
+            setIsMenuOpen,toggleMenu
         }}
         >
             {children}
