@@ -8,8 +8,7 @@ import Login from './Pages/Login.jsx';
 import Register from './Pages/Register.jsx';
 import Profile from './Pages/Profile.jsx';
 import Saved from './Pages/Saved.jsx';
-import ViewRecipe from './Pages/ViewRecipe.jsx';
-import RecipeUser from './Pages/RecipeUser.jsx';
+import RecipePost from './Pages/RecipePost.jsx';
 import ContextProvider from './store/context.jsx';
 
 const routes = createBrowserRouter([
@@ -22,8 +21,7 @@ const routes = createBrowserRouter([
       { path: "/register", element: <Register /> },
       { path: "/profile", element: <Profile /> },
       { path: "/saved", element: <Saved /> },
-      { path: "/view-recipe", element: <ViewRecipe /> },
-      { path: "/recipe-user", element: <RecipeUser /> }
+      {path:"/recipe-post/:postId",element:<RecipePost/>}
     ]
   }
 ]);

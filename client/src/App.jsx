@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen bg-rose-50 text-gray-900">
       <Header />
-      <div className="flex-grow p-4">
+      <div className="flex-grow py-4 px-6 md:px-28 mt-10 ">
         <Outlet />
       </div>
       <Toaster />
