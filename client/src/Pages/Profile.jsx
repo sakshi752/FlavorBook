@@ -7,23 +7,25 @@ const Profile = () => {
   const { isAuthenticated, loading, user } = useContext(Context);
 
   return (
-    <div>
+    <div className="bg-rose-50 flex items-center justify-center">
       {loading ? (
         <Loader />
       ) : (
-        <div>
+        <div className="bg-white p-8 rounded-lg shadow-lg text-center">
           {isAuthenticated ? (
-            <div className='text-white flex items-center gap-5 flex-col mt-20 text-2xl font-semibold tracking-widest'>
+            <div className='text-gray-900 flex items-center gap-5 flex-col mt-10 text-2xl font-semibold tracking-widest'>
               <h1>Welcome, {user.name}</h1>
             </div>
           ) : (
-            <div className='text-white flex items-center gap-5 flex-col mt-20 text-2xl font-semibold tracking-widest'>
-              <p >Please log in to view your profile...</p>
+            <div className='text-gray-900 flex items-center gap-5 flex-col mt-10 text-2xl font-semibold tracking-widest'>
+              <p>Please log in to view your profile...</p>
               <Link
-              className='bg-slate-950 px-4 py-2 rounded-lg hover:bg-slate-700'
-              to="/login"> Login</Link>
+                className='bg-rose-500 px-4 py-2 rounded-lg hover:bg-rose-600 text-white'
+                to="/login"
+              >
+                Login
+              </Link>
             </div>
-
           )}
         </div>
       )}

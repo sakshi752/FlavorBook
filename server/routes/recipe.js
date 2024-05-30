@@ -4,12 +4,14 @@ import { deleteRecipe, getAllRecipes, getRecipesOfUser, getUser,newRecipe, updat
 
 const router=express.Router();
 
+// add new recipe in authenticated user
 router.post("/new",isAuthenticated,newRecipe);
-// this will give all recipes irrespective of the user
-router.get("/all-recipes",getAllRecipes);
 
 // this will give us recipes of a authenticated user only
 router.get("/all-recipes-user",isAuthenticated,getRecipesOfUser);
+
+// this will give all recipes irrespective of the user
+router.get("/all-recipes",getAllRecipes);
 
 // this will give us author info of a particular recipe
 router.get("/:userId",getUser)

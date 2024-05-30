@@ -23,8 +23,8 @@ const Header = () => {
     };
 
     return (
-        <nav className='bg-rose-600 shadow-md'>
-            <div className='flex flex-col space-y-5 md:flex-row justify-between items-center px-8 py-4'>
+        <nav className='bg-rose-600 shadow-xl sticky top-0'>
+            <div className='flex flex-col md:flex-row justify-between items-center py-2 px-3 '>
                 <div>
                     <Link to="/">
                         <p className='text-white text-3xl font-bold tracking-wide'>FlavorBook</p>

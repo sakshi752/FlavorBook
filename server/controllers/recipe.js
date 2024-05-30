@@ -18,18 +18,6 @@ export const newRecipe=async (req,res,next)=>{
   
 };
 
-export const getAllRecipes=async (req,res,next)=>{
-    try {
-        const recipes=await Recipe.find();
-        res.status(200).json({
-            success:true,
-            recipes
-        })
-    } catch (error) {
-        next(error);
-    }
-};
-
 export const getRecipesOfUser=async (req,res,next)=>{
     try {
         const userId=req.user._id;
@@ -43,6 +31,18 @@ export const getRecipesOfUser=async (req,res,next)=>{
         next(error);
     }
 }
+
+export const getAllRecipes=async (req,res,next)=>{
+    try {
+        const recipes=await Recipe.find();
+        res.status(200).json({
+            success:true,
+            recipes
+        })
+    } catch (error) {
+        next(error);
+    }
+};
 
 export const getUser = async (req, res, next) => {
     try {
