@@ -21,7 +21,7 @@ const RecipeCard = ({ _id, description,title, userId,userName }) => {
                 <div className='flex justify-between items-center'>
                     <Link className=" text-lg  text-gray-900 hover:text-rose-500 mb-2 font-semibold"
                     to={`/user/${userId}`}>
-                        {userName}
+                       By {userName}
                     </Link>
                     <div className=' flex gap-4'>
                         <Link className='bg-rose-500 px-3 py-2 rounded text-white'

@@ -72,7 +72,7 @@ export const getUser = async (req, res, next) => {
         // Fetch user profile and recipes concurrently
         const [user, recipes] = await Promise.all([
             User.findById(userId),
-            Recipe.find({ user: userId })
+            Recipe.find({ user: userId }).populate('user', '_id name')
         ]);
 
         if (!user) {
