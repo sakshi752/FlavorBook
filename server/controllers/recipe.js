@@ -51,7 +51,7 @@ export const getAllRecipes=async (req,res,next)=>{
 // view recipe details
 export const viewRecipe=async(req,res,next)=>{
     try {
-        const recipe=await Recipe.findById(req.params.id);
+        const recipe=await Recipe.findById(req.params.recipeId);
         if (!recipe) return next(new ErrorHandler("Recipe not found"),404);
 
         res.status(200).json({

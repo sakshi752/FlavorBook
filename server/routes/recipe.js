@@ -17,7 +17,7 @@ router.get("/all-recipes",getAllRecipes);
 router.get("/view-recipe/:recipeId",viewRecipe);
 
 // this will give us author info of a particular recipe. author's info and his/her recipes will be returned
-router.get("/:userId",getUser)
+router.get("/user/:userId",getUser)
 
 // this is to perform manipulation on a particular recipe
 router.route("/:id").put(isAuthenticated,updateRecipe).delete(isAuthenticated,deleteRecipe);

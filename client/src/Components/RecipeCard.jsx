@@ -1,29 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const RecipeCard = ({ _id, description, ingredient1, ingredient2, ingredient3, ingredient4, title }) => {
+const RecipeCard = ({ _id, description, ingredient1, ingredient2, ingredient3, ingredient4, title, user }) => {
     // Truncate long descriptions and titles
     const shortDescription = description.length > 70 ? description.substr(0, 70) + '...' : description;
     const shortTitle = title.length > 30 ? title.substr(0, 30) + '...' : title;
-
     return (
         <div className=" bg-white rounded shadow-md">
+            {/* img */}
             <div className="">
                 <img src="/dummy-recipe.jpg" alt="Recipe Image" className="w-full h-48 object-cover object-center" />
             </div>
-            <div className="p-4 flex flex-col gap-8">
+            {/* other details */}
+            <div className="px-4 py-3 flex flex-col gap-4">
+                {/* title and desc */}
                 <div>
-                    <h1 className=" text-2xl font-semibold text-gray-900 mb-2">{shortTitle}</h1>
+                    <h1 className=" text-2xl font-semibold text-gray-900 mb-1">{shortTitle}</h1>
                     <p className="text-md text-gray-700">{shortDescription}</p>
                 </div>
+                {/* author name and view, save button */}
                 <div className='flex justify-between items-center'>
-                    <Link className=" text-lg  text-gray-900 mb-2">
+                    <Link className=" text-lg  text-gray-900 hover:text-rose-500 mb-2 font-semibold"
+                    to={`/user/${user}`}>
                         By sakshi Patel
                     </Link>
-                    <div className=' flex gap-10'>
-                        <Link >
+                    <div className=' flex gap-4'>
+                        <Link className='bg-rose-500 px-3 py-2 rounded text-white'
+                        to="/saved">
                             Save
                         </Link>
-                        <Link to="/recipe-post/1">
+                        <Link className='bg-rose-500 px-3 py-2 rounded text-white' 
+                        to={`/recipe-post/${_id}`}>
                             View
                         </Link>
                     </div>
