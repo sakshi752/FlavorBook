@@ -38,7 +38,7 @@ export const getRecipesOfUser=async (req,res,next)=>{
 // this will give all recipes irrespective of the user, they will be displayed on home page
 export const getAllRecipes=async (req,res,next)=>{
     try {
-        const recipes=await Recipe.find();
+        const recipes=await Recipe.find().populate('user', '_id name');
         res.status(200).json({
             success:true,
             recipes

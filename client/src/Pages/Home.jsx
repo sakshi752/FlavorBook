@@ -44,7 +44,8 @@ const Home = () => {
                   ingredient3={ingredient3}
                   ingredient4={ingredient4}
                   title={title}
-                  user={user}
+                  userId={user._id}
+                  userName={user.name}
                 />
               ))}
             </section>

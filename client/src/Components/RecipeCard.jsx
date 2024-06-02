@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const RecipeCard = ({ _id, description, ingredient1, ingredient2, ingredient3, ingredient4, title, user }) => {
+const RecipeCard = ({ _id, description,title, userId,userName }) => {
     // Truncate long descriptions and titles
     const shortDescription = description.length > 70 ? description.substr(0, 70) + '...' : description;
     const shortTitle = title.length > 30 ? title.substr(0, 30) + '...' : title;
@@ -20,8 +20,8 @@ const RecipeCard = ({ _id, description, ingredient1, ingredient2, ingredient3, i
                 {/* author name and view, save button */}
                 <div className='flex justify-between items-center'>
                     <Link className=" text-lg  text-gray-900 hover:text-rose-500 mb-2 font-semibold"
-                    to={`/user/${user}`}>
-                        By sakshi Patel
+                    to={`/user/${userId}`}>
+                        {userName}
                     </Link>
                     <div className=' flex gap-4'>
                         <Link className='bg-rose-500 px-3 py-2 rounded text-white'
@@ -29,7 +29,7 @@ const RecipeCard = ({ _id, description, ingredient1, ingredient2, ingredient3, i
                             Save
                         </Link>
                         <Link className='bg-rose-500 px-3 py-2 rounded text-white' 
-                        to={`/recipe-post/${_id}`}>
+                        to={`/recipe-post/${userName}/${_id}`}>
                             View
                         </Link>
                     </div>
