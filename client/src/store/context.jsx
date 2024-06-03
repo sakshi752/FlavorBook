@@ -9,8 +9,25 @@ const ContextProvider=({children})=>{
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [toggle,setToggle]=useState(false);
 
+    // form data
+    const [title,setTitle]=useState("");
+    const [description,setDescription]=useState("");
+    const [ingredient1,setIngredient1]=useState("");
+    const [ingredient2,setIngredient2]=useState("");
+    const [ingredient3,setIngredient3]=useState("");
+    const [ingredient4,setIngredient4]=useState("");
+    const [imgUrl,setImgUrl]=useState("");
+
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+        setTitle("");
+        setDescription("");
+        setIngredient1("");
+        setIngredient2("");
+        setIngredient3("");
+        setIngredient4("");
+        setImgUrl("")
     };
 
     const toggleForm=()=>{
@@ -29,7 +46,14 @@ const ContextProvider=({children})=>{
             setUser,isMenuOpen, 
             setIsMenuOpen,toggleMenu,
             toggle,setToggle,
-            toggleForm
+            toggleForm,
+            title,setTitle,
+            description,setDescription,
+            ingredient1,setIngredient1,
+            ingredient2,setIngredient2,
+            ingredient3,setIngredient3,
+            ingredient4,setIngredient4,
+            imgUrl,setImgUrl
         }}
         >
             {children}
