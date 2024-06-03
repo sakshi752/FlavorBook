@@ -11,7 +11,7 @@ import Loader from '../Components/Loader';
 const RecipePost = () => {
   const { loading,setLoading } = useContext(Context);
   const [recipe, setRecipe] = useState({});
-  const { recipeId,userName } = useParams();
+  const { recipeId } = useParams();
 
   useEffect(() => {
     setLoading(true)
@@ -29,7 +29,7 @@ const RecipePost = () => {
   }, [recipeId]);
 
   return (
-    <div>
+    <>
       {loading ? (
         <Loader />
       ) : (
@@ -67,7 +67,7 @@ const RecipePost = () => {
           </div>
         </section>
       )}
-    </div>
+    </>
 
 
   );

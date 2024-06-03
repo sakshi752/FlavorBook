@@ -30,7 +30,7 @@ const AuthorInfo = () => {
     });
   }, []);
   return (
-    <div>
+    <>
       {loading ? (
         <Loader />
       ) : (
@@ -65,7 +65,7 @@ const AuthorInfo = () => {
 
         </section>
       )}
-    </div>
+    </>
   )
 }
 

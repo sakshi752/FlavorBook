@@ -22,7 +22,7 @@ const routes = createBrowserRouter([
       { path: "/register", element: <Register /> },
       { path: "/profile", element: <Profile /> },
       { path: "/saved", element: <Saved /> },
-      {path:"/recipe-post/:userName/:recipeId",element:<RecipePost/>},
+      {path:"/recipe-post/:recipeId",element:<RecipePost/>},
       {path:"/user/:userId",element:<AuthorInfo/>}
     ]
   }

@@ -33,7 +33,7 @@ const Home = () => {
           <div className='text-gray-900'>
             <h1 className='text-rose-500 mb-9 text-3xl text-center'>Recipe Blogs</h1>
 
-            <section className='grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 tracking-widest'>
+            <section className='grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8'>
               {allRecipes.map(({ _id, description, ingredient1, ingredient2, ingredient3, ingredient4, title,user }) => (
                 <RecipeCard
                   key={_id}

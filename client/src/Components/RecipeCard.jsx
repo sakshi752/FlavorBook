@@ -29,7 +29,7 @@ const RecipeCard = ({ _id, description,title, userId,userName }) => {
                             Save
                         </Link>
                         <Link className='bg-rose-500 px-3 py-2 rounded text-white' 
-                        to={`/recipe-post/${userName}/${_id}`}>
+                        to={`/recipe-post/${_id}`}>
                             View
                         </Link>
                     </div>
