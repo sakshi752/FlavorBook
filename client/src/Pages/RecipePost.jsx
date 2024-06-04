@@ -10,6 +10,7 @@ import Loader from '../Components/Loader';
 
 const RecipePost = () => {
   const { loading,setLoading } = useContext(Context);
+  // here recipe state is for storing detail of a particular recipe
   const [recipe, setRecipe] = useState({});
   const { recipeId } = useParams();
 
@@ -42,7 +43,7 @@ const RecipePost = () => {
 
           <div className="max-w-5xl mx-auto p-6 bg-white shadow-md rounded-lg">
             <div className="mb-6">
-              <img src={recipe.imageUrl || "/dummy-recipe.jpg"} alt="Recipe" className="w-full md:h-96 object-cover rounded-md" />
+              <img src={"/dummy-recipe.jpg"} alt="Recipe" className="w-full md:h-96 object-cover rounded-md" />
             </div>
             <div className="mb-6">
               <div className='flex items-center justify-between mb-4'>

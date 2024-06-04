@@ -8,6 +8,7 @@ import RecipeCard from '../Components/RecipeCard'
 
 const Home = () => {
   const {  loading } = useContext(Context);
+  // this are recipes for storing all recipes
   const [allRecipes, setAllRecipes] = useState([]);
 
   useEffect(() => {

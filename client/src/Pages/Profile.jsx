@@ -8,8 +8,8 @@ import { server } from '../main';
 import RecipeForm from '../Components/RecipeForm';
 
 const Profile = () => {
-  const { isAuthenticated, loading, user,toggle,toggleForm } = useContext(Context);
-  // console.log(user);
+  const { isAuthenticated, loading, user, toggle, toggleForm } = useContext(Context);
+  // those are recipes for dashboard of authenticated user
   const [authenticatedRecipes, setAuthenticatedRecipes] = useState([]);
   useEffect(() => {
     axios.get(`${server}/recipes/all-recipes-user`, {
@@ -19,9 +19,18 @@ const Profile = () => {
     }).catch(e => {
       toast.error(e.response.data.message);
     })
-  }, []);
-  const handleDelete = () => {
+  }, [authenticatedRecipes]);
 
+  const handleDelete = async (id) => {
+    try {
+      const { data } = await axios.delete(`${server}/recipes/${id}`, {
+        withCredentials: true
+      });
+      toast.success(data.message);
+    } catch (error) {
+      toast.error(error.response.data.message);
+
+    }
   }
   return (
     <>
@@ -36,27 +45,27 @@ const Profile = () => {
                 <div className="mb-8">
                   <h1 className="text-4xl font-bold mb-2">{user.name}'s Profile</h1>
                   <p className="text-gray-600">{user.email}</p>
-                  <button 
-                  onClick={toggleForm}
-                  className='mt-3 px-5 py-3 rounded text-white font-semibold bg-rose-500 '>Add Recipes</button>
+                  <button
+                    onClick={toggleForm}
+                    className='mt-3 px-5 py-3 rounded text-white font-semibold bg-rose-500 '>Add Recipes</button>
                 </div>
                 {
-                  toggle && <RecipeForm/>
+                  toggle && <RecipeForm />
                 }
                 {/* dashboard */}
                 <div className=''>
                   {authenticatedRecipes.map((recipe, index) => (
                     <div key={index} className="mb-4 flex justify-between items-center bg-rose-500 px-2 py-1 rounded">
                       <div className='flex gap-2'>
-                        <img 
-                        className='w-20 rounded'
-                        src={recipe.imageUrl || "/dummy-recipe.jpg"} alt="" />
+                        <img
+                          className='w-20 rounded'
+                          src={"/dummy-recipe.jpg"} alt="" />
                         <h1 className='text-lg font-semibold text-white'>{recipe.title}</h1>
                       </div>
                       <div className='flex gap-3'>
                         {/* <Link to={`/recipe-post/${recipe._id}`} className='bg-rose-500 px-3 py-2 rounded text-white font-semibold text-lg hover:text-gray-300'>View</Link> */}
-                        <button onClick={() => handleDelete(recipe.id)}
-                        className='bg-rose-500 px-3 py-2 rounded text-white font-semibold hover:text-gray-300'
+                        <button onClick={() => handleDelete(recipe._id)}
+                          className='bg-rose-500 px-3 py-2 rounded text-white font-semibold hover:text-gray-300'
                         >Delete</button>
                       </div>
                     </div>

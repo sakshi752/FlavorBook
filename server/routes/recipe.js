@@ -1,11 +1,12 @@
 import express from "express";
 import { isAuthenticated } from "../middleware/auth.js";
 import { deleteRecipe, getAllRecipes, getRecipesOfUser, getUser,newRecipe, updateRecipe, viewRecipe } from "../controllers/recipe.js";
+import {upload} from "../middleware/multerConfig.js";
 
 const router=express.Router();
 
 // add new recipe in authenticated user
-router.post("/new",isAuthenticated,newRecipe);
+router.post("/new",isAuthenticated,upload.single('file'),newRecipe);
 
 // this will give us recipes of a authenticated user only
 router.get("/all-recipes-user",isAuthenticated,getRecipesOfUser);

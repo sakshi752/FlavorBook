@@ -5,7 +5,8 @@ import { User } from "../models/user.js";
 // add new recipe in authenticated user
 export const newRecipe=async (req,res,next)=>{
     try {
-        const {title,ingredient1,ingredient2,ingredient3,ingredient4,description,imageUrl}=req.body;
+        const {title,ingredient1,ingredient2,ingredient3,ingredient4,description}=req.body;
+        const imageUrl = `http://localhost:3000/uploads/${req.file.filename}`;
         const recipe=await Recipe.create({
             title,ingredient1,ingredient2,ingredient3,ingredient4,description,imageUrl,user:req.user
         });
