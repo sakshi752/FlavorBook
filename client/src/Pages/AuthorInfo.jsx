@@ -46,7 +46,7 @@ const AuthorInfo = () => {
               <p className="text-gray-600">{user.email}</p>
             </div>
             <div className='grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 tracking-widest'>
-              {usersRecipe.map(({ _id, description, ingredient1, ingredient2, ingredient3, ingredient4, title, user }) => (
+              {usersRecipe.map(({ _id, description, ingredient1, ingredient2, ingredient3, ingredient4, title, user ,imageUrl}) => (
                 <RecipeCard
                   key={_id}
                   _id={_id}
@@ -55,6 +55,7 @@ const AuthorInfo = () => {
                   ingredient2={ingredient2}
                   ingredient3={ingredient3}
                   ingredient4={ingredient4}
+                  imageUrl={imageUrl}
                   title={title}
                   userId={user._id}
                   userName={user.name}

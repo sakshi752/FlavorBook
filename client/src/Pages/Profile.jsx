@@ -11,6 +11,7 @@ const Profile = () => {
   const { isAuthenticated, loading, user, toggle, toggleForm } = useContext(Context);
   // those are recipes for dashboard of authenticated user
   const [authenticatedRecipes, setAuthenticatedRecipes] = useState([]);
+
   useEffect(() => {
     axios.get(`${server}/recipes/all-recipes-user`, {
       withCredentials: true
@@ -20,7 +21,7 @@ const Profile = () => {
       toast.error(e.response.data.message);
     })
   }, [authenticatedRecipes]);
-
+  console.log(authenticatedRecipes);
   const handleDelete = async (id) => {
     try {
       const { data } = await axios.delete(`${server}/recipes/${id}`, {
@@ -53,15 +54,21 @@ const Profile = () => {
                   toggle && <RecipeForm />
                 }
                 {/* dashboard */}
-                <div className=''>
+                {authenticatedRecipes.length!==0?(
+                  <div className=''>
                   {authenticatedRecipes.map((recipe, index) => (
                     <div key={index} className="mb-4 flex justify-between items-center bg-rose-500 px-2 py-1 rounded">
-                      <div className='flex gap-2'>
-                        <img
-                          className='w-20 rounded'
-                          src={"/dummy-recipe.jpg"} alt="" />
+
+                      {/* image and title */}
+                      <div className='flex gap-4'>
+                        <div className='w-20 h-20 overflow-hidden rounded'>
+                          <img
+                            className='w-full h-full object-cover'
+                            src={recipe.imageUrl || "/dummy-recipe.jpg"} alt="" />
+                        </div>
                         <h1 className='text-lg font-semibold text-white'>{recipe.title}</h1>
                       </div>
+
                       <div className='flex gap-3'>
                         {/* <Link to={`/recipe-post/${recipe._id}`} className='bg-rose-500 px-3 py-2 rounded text-white font-semibold text-lg hover:text-gray-300'>View</Link> */}
                         <button onClick={() => handleDelete(recipe._id)}
@@ -71,6 +78,12 @@ const Profile = () => {
                     </div>
                   ))}
                 </div>
+                ):(
+                  <div className='flex justify-center mt-20 text-xl font-bold'>
+                    <h1>You have no recipes!</h1>
+                  </div>
+                )}
+                
               </section>
             ) : (
               <div className='flex flex-col items-center gap-7'>

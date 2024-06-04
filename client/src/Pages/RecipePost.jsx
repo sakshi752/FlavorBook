@@ -41,9 +41,9 @@ const RecipePost = () => {
             </Link>
           </div>
 
-          <div className="max-w-5xl mx-auto p-6 bg-white shadow-md rounded-lg">
-            <div className="mb-6">
-              <img src={"/dummy-recipe.jpg"} alt="Recipe" className="w-full md:h-96 object-cover rounded-md" />
+          <div className="max-w-5xl mx-auto p-6 bg-white shadow-md rounded">
+            <div className="mb-6 h-[28rem]">
+              <img src={recipe.imageUrl} alt="Recipe" className="w-full h-full object-cover" />
             </div>
             <div className="mb-6">
               <div className='flex items-center justify-between mb-4'>

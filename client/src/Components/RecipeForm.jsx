@@ -1,4 +1,4 @@
-import React, { useContext ,useState} from 'react';
+import React, { useContext, useState } from 'react';
 import { Context } from '../store/context';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import axios from 'axios';
@@ -14,24 +14,24 @@ const RecipeForm = () => {
         ingredient2, setIngredient2,
         ingredient3, setIngredient3,
         ingredient4, setIngredient4, imgUrl, setImgUrl } = useContext(Context);
+
     const submitHandler = async (e) => {
         e.preventDefault();
-        const formdata=new FormData();
-        formdata.append('file',file);
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('ingredient1', ingredient1);
+        formData.append('ingredient2', ingredient2);
+        formData.append('ingredient3', ingredient3);
+        formData.append('ingredient4', ingredient4);
+
         try {
             setLoading(true);
-            const { data } = await axios.post(`${server}/recipes/new`, {
-                title,
-                description,
-                ingredient1,
-                ingredient2,
-                ingredient3,
-                ingredient4,
-                imageUrl: formdata
-            }, {
+            const { data } = await axios.post(`${server}/recipes/new`, formData, {
                 withCredentials: true,
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "multipart/form-data",
                 },
             });
             toast.success(data.message);
@@ -43,13 +43,14 @@ const RecipeForm = () => {
             setIngredient4("");
             setImgUrl("");
             toggleForm();
-            setLoading(false)
+            setLoading(false);
         } catch (error) {
-            toast.error(error.response.data.message);
+            toast.error(error.response?.data?.message || "Failed to add recipe");
             setLoading(false);
             toggleForm();
         }
-    }
+    };
+
 
     return (
         <div className="fixed inset-0 flex justify-center items-center bg-opacity-30 bg-slate-900 z-10">
@@ -119,7 +120,7 @@ const RecipeForm = () => {
                         <input
                             type="file"
                             onChange={(e) => setFile(e.target.files[0])}
-                            className="block w-full text-sm text-white rounded cursor-pointer bg-yellow-800 focus:outline-none mb-4"
+                            className="block w-full text-sm rounded text cursor-pointer bg-rose-500 focus:outline-none mt-2"
                         />
                     </div>
                     <div>

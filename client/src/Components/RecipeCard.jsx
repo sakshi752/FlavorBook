@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-const RecipeCard = ({ _id, description,title, userId,userName }) => {
+const RecipeCard = ({ _id, description,title, userId,userName ,imageUrl}) => {
     // Truncate long descriptions and titles
     const shortDescription = description.length > 70 ? description.substr(0, 70) + '...' : description;
     const shortTitle = title.length > 30 ? title.substr(0, 30) + '...' : title;
     return (
         <div className=" bg-white rounded shadow-md">
             {/* img */}
-            <div className="">
-                <img src="/dummy-recipe.jpg" alt="Recipe Image" className="w-full h-48 object-cover object-center" />
+            <div className="h-60">
+                <img src={imageUrl} alt="Recipe Image" className="w-full h-full object-cover object-center" />
             </div>
             {/* other details */}
             <div className="px-4 py-3 flex flex-col gap-4">

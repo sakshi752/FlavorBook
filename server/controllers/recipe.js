@@ -6,10 +6,13 @@ import { User } from "../models/user.js";
 export const newRecipe=async (req,res,next)=>{
     try {
         const {title,ingredient1,ingredient2,ingredient3,ingredient4,description}=req.body;
-        const imageUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+
+        const imageUrl = `http://localhost:4000/uploads/${req.file.filename}`
+        
         const recipe=await Recipe.create({
             title,ingredient1,ingredient2,ingredient3,ingredient4,description,imageUrl,user:req.user
         });
+        
         res.status(201).json({
             success:true,
             message:"Recipe added"
