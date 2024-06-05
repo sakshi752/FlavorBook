@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-const RecipeCard = ({ _id, description,title, userId,userName ,imageUrl}) => {
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import { server } from '../main';
+import { Context } from '../store/context';
+
+const RecipeCard = ({ recipeId, description, title, userId, userName, imageUrl }) => {
     // Truncate long descriptions and titles
+    const { isAuthenticated } = useContext(Context);
     const shortDescription = description.length > 70 ? description.substr(0, 70) + '...' : description;
     const shortTitle = title.length > 30 ? title.substr(0, 30) + '...' : title;
+
+    const handleSaveRecipe = async (id) => {
+        try {
+            // Make a POST request to save the recipe
+            const {data}=await axios.post(`${server}/users/save-recipe`,
+            {
+                id
+            },
+            { 
+                headers: {
+                    "Content-Type": "application/json",
+                  },
+                withCredentials: true });
+            console.log(data);
+            toast.success(data.message);
+        } catch (error) {
+            if (error.response && error.response.data) {
+                toast.error(error.response.data.message);
+            }
+            else {
+                toast.error("An error occurred. Please try again.");
+            }
+        }
+    };
+
     return (
         <div className=" bg-white rounded shadow-md">
             {/* img */}
@@ -20,16 +51,17 @@ const RecipeCard = ({ _id, description,title, userId,userName ,imageUrl}) => {
                 {/* author name and view, save button */}
                 <div className='flex justify-between items-center'>
                     <Link className=" text-lg  text-gray-900 hover:text-rose-500 mb-2 font-semibold"
-                    to={`/user/${userId}`}>
-                       By {userName}
+                        to={`/user/${userId}`}>
+                        By {userName}
                     </Link>
                     <div className=' flex gap-4'>
-                        <Link className='bg-rose-500 px-3 py-2 rounded text-white'
-                        to="/saved">
+                        <button className='bg-rose-500 px-3 py-2 rounded text-white'
+                            onClick={()=>handleSaveRecipe(recipeId)}
+                        >
                             Save
-                        </Link>
-                        <Link className='bg-rose-500 px-3 py-2 rounded text-white' 
-                        to={`/recipe-post/${_id}`}>
+                        </button>
+                        <Link className='bg-rose-500 px-3 py-2 rounded text-white'
+                            to={`/recipe-post/${recipeId}`}>
                             View
                         </Link>
                     </div>

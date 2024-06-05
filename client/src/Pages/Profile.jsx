@@ -21,7 +21,7 @@ const Profile = () => {
       toast.error(e.response.data.message);
     })
   }, [authenticatedRecipes]);
-  console.log(authenticatedRecipes);
+  // console.log(authenticatedRecipes);
   const handleDelete = async (id) => {
     try {
       const { data } = await axios.delete(`${server}/recipes/${id}`, {

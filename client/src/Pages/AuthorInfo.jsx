@@ -14,7 +14,8 @@ const AuthorInfo = () => {
   const { loading, setLoading } = useContext(Context);
   const [usersRecipe, setUsersRecipe] = useState([]);
   const [user, setUser] = useState({});
-  console.log(userId);
+  // console.log(userId);
+
   useEffect(() => {
     setLoading(true);
     axios.get(`${server}/recipes/user/${userId}`, {
@@ -49,7 +50,7 @@ const AuthorInfo = () => {
               {usersRecipe.map(({ _id, description, ingredient1, ingredient2, ingredient3, ingredient4, title, user ,imageUrl}) => (
                 <RecipeCard
                   key={_id}
-                  _id={_id}
+                  recipeId={_id}
                   description={description}
                   ingredient1={ingredient1}
                   ingredient2={ingredient2}

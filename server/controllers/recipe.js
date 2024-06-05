@@ -124,22 +124,3 @@ export const deleteRecipe = async (req, res, next) => {
 export const updateRecipe=async(req,res,next)=>{
     
 }
-
-// saved recipes
-export const saveRecipe=async(req,res,next)=>{
-    try {
-        const userId=req.user._id;
-        const recipeId=req.params.recipeId;
-        const recipe=await Recipe.find(recipeId);
-        const user=await User.find(userId);
-    } catch (error) {
-        next(error);
-    }
-  
-
-}
-
-// fetch saved recipes
-export const fetchSavedRecipe=async(req,res,next)=>{
-
-}

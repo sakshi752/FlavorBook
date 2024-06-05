@@ -38,7 +38,7 @@ const Home = () => {
               {allRecipes.map(({ _id, description, ingredient1, ingredient2, ingredient3, ingredient4, title,user,imageUrl }) => (
                 <RecipeCard
                   key={_id}
-                  _id={_id}
+                  recipeId={_id}
                   description={description}
                   ingredient1={ingredient1}
                   ingredient2={ingredient2}

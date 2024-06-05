@@ -41,6 +41,7 @@ const Register = () => {
       else {
         toast.error("An error occurred. Please try again.");
       }
+      setLoading(false);
       setIsAuthenticated(false);
     }
   };
