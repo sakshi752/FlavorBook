@@ -111,19 +111,22 @@ export const saveRecipe =async (req, res, next) => {
         const userId = req.user._id;
 
         // Find the user by ID and populate the savedRecipes field to get the details of each saved recipe
-        const user = await User.findById(userId).populate('savedRecipes _id name');
+        const user = await User.findById(userId).populate({
+            path: 'savedRecipes',
+            populate: {
+                path: 'user',
+                select: '_id name' // Select only _id and name fields of the user
+            }
+        });
 
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
         }
 
-        // // Extract the saved recipes from the user object
-        // const savedRecipes = user.savedRecipes;
+        // Extract the saved recipes from the user object
+        const savedRecipes = user.savedRecipes;
 
-        // // Extract user details
-        // const { username, _id } = user;
-
-        res.status(200).json({ success: true, user});
+        res.status(200).json({ success: true, savedRecipes });
     } catch (error) {
         next(error);
     }

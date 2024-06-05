@@ -14,7 +14,8 @@ const Saved = () => {
     axios.get(`${server}/users/saved-recipes`, {
       withCredentials: true
     }).then(res => {
-      setSavedRecipes(res.data.user.savedRecipes);
+      console.log(res.data.savedRecipes);
+      setSavedRecipes(res.data.savedRecipes);
       setLoading(false);
     }).catch(e => {
       console.error(e); // Log the error to see its structure
