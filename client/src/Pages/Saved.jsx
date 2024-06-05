@@ -38,6 +38,7 @@ const Saved = () => {
           title={title}
           userId={user._id}  // Change to user._id
           userName={user.name}  // Change to user.username
+          component="saved"
         />
       ))}
     </div>

@@ -79,34 +79,34 @@ export const getMyProfile = (req, res, next) => {
     })
 };
 // saved recipes
-export const saveRecipe =async (req, res, next) => {
-        try {
-            const {id} = req.body;
-            const userId = req.user._id;
+export const saveRecipe = async (req, res, next) => {
+    try {
+        const { id } = req.body;
+        const userId = req.user._id;
 
-            // Check if the recipe exists
-            const recipe = await Recipe.findById(id);
-            if (!recipe) {
-                return res.status(404).json({ success: false, message: "Recipe not found" });
-            }
-
-            // Check if the recipe is already saved by the user
-            const user = await User.findById(userId);
-            if (user.savedRecipes.includes(id)) {
-                return res.status(400).json({ success: false, message: "Recipe already saved" });
-            }
-
-            // Save the recipe ID to the user's savedRecipes array
-            user.savedRecipes.push(id);
-            await user.save();
-
-            res.status(200).json({ success: true, message: "Recipe saved successfully" });
-        } catch (error) {
-            next(error);
+        // Check if the recipe exists
+        const recipe = await Recipe.findById(id);
+        if (!recipe) {
+            return res.status(404).json({ success: false, message: "Recipe not found" });
         }
- };
 
- export const getSavedRecipes = async (req, res, next) => {
+        // Check if the recipe is already saved by the user
+        const user = await User.findById(userId);
+        if (user.savedRecipes.includes(id)) {
+            return res.status(400).json({ success: false, message: "Recipe already saved" });
+        }
+
+        // Save the recipe ID to the user's savedRecipes array
+        user.savedRecipes.push(id);
+        await user.save();
+
+        res.status(200).json({ success: true, message: "Recipe saved successfully" });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getSavedRecipes = async (req, res, next) => {
     try {
         const userId = req.user._id;
 
@@ -131,3 +131,31 @@ export const saveRecipe =async (req, res, next) => {
         next(error);
     }
 };
+
+export const unsaveRecipe = async (req, res, next) => {
+    try {
+        const { id } = req.body;
+        const userId = req.user._id;
+
+        // Check if the recipe exists
+        const recipe = await Recipe.findById(id);
+        if (!recipe) {
+            return res.status(404).json({ success: false, message: "Recipe not found" });
+        }
+
+        // Check if the recipe is already saved by the user
+        const user = await User.findById(userId);
+        if (!user.savedRecipes.includes(id)) {
+            return res.status(400).json({ success: false, message: "Recipe not saved by the user" });
+        }
+
+        // Remove the recipe ID from the savedRecipes array of the user
+        user.savedRecipes = user.savedRecipes.filter(savedRecipeId => savedRecipeId !== id);
+        await user.save();
+
+        res.json({ success: true, message: "Recipe unsaved successfully" });
+    } catch (error) {
+        console.error("Error unsaving recipe:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}

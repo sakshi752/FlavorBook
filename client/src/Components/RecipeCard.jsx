@@ -5,7 +5,7 @@ import axios from 'axios';
 import { server } from '../main';
 import { Context } from '../store/context';
 
-const RecipeCard = ({ recipeId, description, title, userId, userName, imageUrl }) => {
+const RecipeCard = ({ recipeId, description, title, userId, userName, imageUrl ,component}) => {
     // Truncate long descriptions and titles
     const { isAuthenticated } = useContext(Context);
     const shortDescription = description.length > 70 ? description.substr(0, 70) + '...' : description;
@@ -58,7 +58,7 @@ const RecipeCard = ({ recipeId, description, title, userId, userName, imageUrl }
                         <button className='bg-rose-500 px-3 py-2 rounded text-white'
                             onClick={()=>handleSaveRecipe(recipeId)}
                         >
-                            Save
+                            {component==="saved"?"Unsave":"Save"}
                         </button>
                         <Link className='bg-rose-500 px-3 py-2 rounded text-white'
                             to={`/recipe-post/${recipeId}`}>
