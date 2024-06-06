@@ -7,22 +7,22 @@ import axios from "axios";
 import { server } from "./main.jsx";
 
 function App() {
-  const { setUser,isAuthenticated, setIsAuthenticated, setLoading } = useContext(Context);
+  const { user,setUser,isAuthenticated, setIsAuthenticated, setLoading } = useContext(Context);
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     axios.get(`${server}/users/me`, {
       withCredentials: true
     }).then(res => {
       setUser(res.data.user);
       setIsAuthenticated(true);
-      setLoading(false);
+      // setLoading(false);
     }).catch(err => {
       setUser({});
       setIsAuthenticated(false);
-      setLoading(false);
+      // setLoading(false);
     });
-  }, []);
+  }, [user]);
   // if (!isAuthenticated) {
   //   return <Navigate to="/" />
   // }
