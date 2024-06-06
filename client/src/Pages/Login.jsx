@@ -44,6 +44,7 @@ const Login = () => {
   if (isAuthenticated) {
     return <Navigate to="/" />
   }
+  
   return (
     <div className="flex items-center justify-center  bg-rose-50">
       <section className="max-w-2xl w-full p-6 bg-white rounded shadow-md">

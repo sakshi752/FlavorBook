@@ -90,8 +90,12 @@ export const saveRecipe = async (req, res, next) => {
             return res.status(404).json({ success: false, message: "Recipe not found" });
         }
 
-        // Check if the recipe is already saved by the user
         const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        
+        // Check if the recipe is already saved by the user
         if (user.savedRecipes.includes(id)) {
             return res.status(400).json({ success: false, message: "Recipe already saved" });
         }
@@ -150,7 +154,11 @@ export const unsaveRecipe = async (req, res, next) => {
         }
 
         // Remove the recipe ID from the savedRecipes array of the user
-        user.savedRecipes = user.savedRecipes.filter(savedRecipeId => savedRecipeId !== id);
+        user.savedRecipes = user.savedRecipes.filter(savedRecipeId => savedRecipeId.toString() !== id.toString());
+        await user.save();
+
+        // console.log(user);
+        // console.log(user.savedRecipes);
         await user.save();
 
         res.json({ success: true, message: "Recipe unsaved successfully" });
