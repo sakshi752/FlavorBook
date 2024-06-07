@@ -10,7 +10,7 @@ import Loader from '../Components/Loader';
 const Saved = () => {
   const { loading, setLoading, isAuthenticated } = useContext(Context);
   const [savedRecipes, setSavedRecipes] = useState([]);
-  
+
   useEffect(() => {
     // setLoading(true);
     axios.get(`${server}/users/saved-recipes`, {
@@ -33,24 +33,28 @@ const Saved = () => {
         isAuthenticated ? (
           <div>
             {savedRecipes.length !== 0 ? (
-              <div className='grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 tracking-widest'>
-                {savedRecipes.map(({ _id, description, ingredient1, ingredient2, ingredient3, ingredient4, title, user, imageUrl }) => (
-                  <RecipeCard
-                    key={_id}
-                    recipeId={_id}
-                    description={description}
-                    ingredient1={ingredient1}
-                    ingredient2={ingredient2}
-                    ingredient3={ingredient3}
-                    ingredient4={ingredient4}
-                    imageUrl={imageUrl}
-                    title={title}
-                    userId={user._id}  // Change to user._id
-                    userName={user.name}  // Change to user.username
-                    component="saved"
-                  />
-                ))}
+              <div>
+                <h1 className="text-4xl font-semibold mb-5">Saved Recipes</h1>
+                <div className='grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8 tracking-widest'>
+                  {savedRecipes.map(({ _id, description, ingredient1, ingredient2, ingredient3, ingredient4, title, user, imageUrl }) => (
+                    <RecipeCard
+                      key={_id}
+                      recipeId={_id}
+                      description={description}
+                      ingredient1={ingredient1}
+                      ingredient2={ingredient2}
+                      ingredient3={ingredient3}
+                      ingredient4={ingredient4}
+                      imageUrl={imageUrl}
+                      title={title}
+                      userId={user._id}  // Change to user._id
+                      userName={user.name}  // Change to user.username
+                      component="saved"
+                    />
+                  ))}
+                </div>
               </div>
+
             ) : (
               <div className='flex flex-col items-center justify-center mt-20 text-xl font-bold'>
                 <h1>You have no saved recipes!</h1>

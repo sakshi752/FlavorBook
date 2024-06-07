@@ -47,7 +47,7 @@ const Profile = () => {
                   <h1 className="text-4xl font-bold mb-2">{user.name}'s Profile</h1>
                   <p className="text-gray-600 mb-2">{user.email}</p>
                   <p>Total saved recipes:{user.savedRecipes.length}</p>
-                  <div>
+                  <div className='flex flex-col md:flex-row items-center'>
                     <button
                       onClick={toggleForm}
                       className='mt-3 mr-5 px-5 py-3 rounded text-white font-semibold bg-rose-500 '>Add Recipes</button>
